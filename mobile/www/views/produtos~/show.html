@@ -1,0 +1,326 @@
+<div ng-if="produto.negocio && produto.negocio.lojastatus">
+  <span ng-bind-html="produto.negocio.lojastatus"></span>
+</div>
+
+<div class="well well-sm">
+  <a ui-sref="viewProduto({id:produto.codigo})"><h2>{{produto.name}} - {{produto.negocio.name}}</h2></a>
+</div>
+<div ng-if="produto.fv_responsavel">
+  <div class="well well-sm">
+    <a ui-sref="editProduto({id:produto.codigo})">Alterar cadastro</a>
+    <a ui-sref="newProduto({id:produto.codigo})">Novo produto</a>
+  </div>
+  <!-- <%##=link_to 'fotos', leilaoreverso_leilaoreversofotos_path(@leilaoreverso) %>  -->
+</div>
+
+<div ng-if="!produto.disponivel" class="alert alert-error">
+  Produto indisponível para pedidos
+</div>
+<div ng-if="produto.empromocao" class="desc50mais alert alert-error">
+  Promoção
+</div>
+<div ng-class="produto.disponivel ? 'row' : 'row desativado'" id='produtoparapedido'>
+  <div class="col-sm-4">
+    <img alt="" src="{{produto.picturelarge}}" class="thumbnail inner-border center img-responsive"  >
+    <div ng-if="produto.exibirmensagemimgilust">
+      <i>* Imagem meramente ilustrativa</i>
+    </div>
+    <div class="thumbnail">
+      {{produto.especificacoes}}
+    </div>  
+  </div>
+  <div class="col-sm-8">
+    <!-- <form class="form-horizontal" method="post" action="/line_itens" id="line_itens_form" ng-submit="gravaCard()"> -->
+    <form class="form-horizontal" role="form" ng-submit="gravaCard()">
+    <!-- <%##= form_tag('/line_itens', :id => 'line_itens_form', :class=>'form-horizontal' ) do %> -->
+      <!-- <%##=hidden_field_tag 'produto_id', @produto.codigo%> -->
+      <input type="hidden" name="produto_id" id="produto_id" value="{{produto.codigo}}" />
+      <div ng-if="produto.produtoprimeirametade">
+      <!-- <%#if @produtoprimeirametade%> -->
+        <h3>Primeira metade</h3>
+        <%##=hidden_field_tag 'primeirametadelineitem_id', @lineitemprimeirametade.id%>
+        <div class="col-sm-12">
+          <div class="media well well-sm">
+            <%##=image_tag @produtoprimeirametade.picture.url(:thumb), :class=>'pull-left'%>
+              <div class="media-body">
+                <strong class="media-heading"><%##=@produtoprimeirametade.name %></strong> 
+                <%#variacoesprincipais=Variacao.where(:id=>@lineitemprimeirametade.variacoesselecionadas.map{|v| v.variacao_id}) if @lineitemprimeirametade.variacoesselecionadas%>
+                <%#if !variacoesprincipais.blank?%>
+                  <br/>
+                  <%#variacoesprincipais.each do |vp| %>
+                    <%##= vp.name %>:
+                    <%##=@lineitemprimeirametade.variacoesselecionadas.map{|v| v.name}.join(',') %>
+                  <%#end%>
+                <%#end%>
+                <%#opcionaisprincipais=Opcional.where(:id=>@lineitemprimeirametade.opcionaisselecionados.map{|v| v.opcional_id}) if @lineitemprimeirametade.opcionaisselecionados%>
+                <%#if !opcionaisprincipais.blank?%>
+                  <%#opcionaisprincipais.each do |op| %>
+                    <br/><%##= op.name %>:
+                    <%##=@lineitemprimeirametade.opcionaisselecionados.where("opcional_id=#{op.id}").map{|v| v.name}.join(',') %>
+                  <%#end%>
+                <%#end%>
+              </div>
+          </div>
+        </div>
+      <!-- <%#end%> -->
+      </div>
+      <div ng-if="produto.fracaomeia">
+      <!-- <%#if @produto.fracaomeia%> -->
+        <div class="">
+          <label class="control-label"><strong>Fração</strong></label>
+          <div class="controls">
+            <select id="fracaoitem_id" name="fracaoitem_id" class='form-control'>
+              <!-- <%#if !@produtoprimeirametade %> -->
+                <option value="0">Inteira(o)</option>
+              <!-- <%#end%> -->
+              <option value="1">Metade</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div ng-if="!produto.fracaomeia">
+        <input type="hidden" value="0" name="fracaoitem_id" id="fracaoitem_id">
+      </div>
+      <div id="fracaoalerta" class="alert alert-info" style="display: none;">
+        <strong>ATENÇÃO:</strong><br/>
+        O preço final deste item será o preço da parte de MAIOR VALOR.
+      </div>      
+      <div ng-if="produto.variacoesprincipais" class="">
+        <label class="control-label"><strong>Variações</strong></label>
+        <div ng-repeat='variacaoprincipal in produto.variacoesprincipais'>
+          <div>
+            <label class="control-label">{{variacaoprincipal.name}}</label>
+            <div class="controls">
+              <select name="selectvariacao[]" id="selectvariacao{{variacaoprincipal.id}}" class="valid form-control" rel="selectvariacao" >
+                  <option ng-repeat='produtovariacao in variacaoprincipal.variacoessecundarias' value="{{produtovariacao.variacao_id}}" influencia="{{produtovariacao.influenciapreco_id}}" preco="{{produtovariacao.precoatual}}" ng-model="selectvariacao">
+                    {{produtovariacao.variacao_name}}
+                  </option>
+              </select>
+            </div>        
+          </div>
+        </div>
+      </div>
+      <div ng-if="produto.opcionaisprincipais" class="">
+        <label class="control-label"><strong>Opcionais</strong></label>
+        <div ng-repeat='opcionalprincipal in produto.opcionaisprincipais'>
+          <label class="control-label">{{opcionalprincipal.name}}</label>
+          <div class="controls">
+            <div ng-repeat='opcionalsecundario in opcionalprincipal.opcionaissecundarios'>
+              <input type="checkbox" value="{{opcionalsecundario.opcional_id}}" rel="chkboxopcional" preco="{{opcionalsecundario.preco}}" name="chkboxopcional[]" influencia="{{opcionalsecundario.influenciapreco_id}}" id="chkboxopcional{{opcionalsecundario.id}}">
+              {{opcionalsecundario.opcional_name}}
+              <br/>
+            </div>
+          </div>        
+        </div>
+      </div>
+      <div class="">
+        <label class="control-label" for="subtotal">Sub total (R$):</label>
+        <div class="controls">
+          <input type="text" class="form-control" value="{{produto.preco}}" rel="campovalor" name="subtotal" id="subtotal" disabled>
+          <input type="hidden" value="{{produto.preco}}" name="precounitario" id="precounitario">
+          <input type="hidden" value="{{produto.preco}}" name="precobase" id="precobase">
+        </div>        
+      </div>
+      <div ng-if="produto.produtoprimeirametade">  
+        <input type="hidden" value="1" name="quantidade" id="quantidade" ng-model="card.quantidade">
+      </div>
+      <div ng-if="!produto.produtoprimeirametade">  
+        <div class="">
+          <label class="control-label" for="quantidade">Quantidade:</label>
+          <div class="controls">
+            <input type="text" class="form-control" value="1" rel="campointeger" name="quantidade" id="quantidade" ng-model="card.quantidade" ng-change="changeQuantidade()">
+          </div>
+        </div>
+      </div>
+
+      <div class="">
+        <label class="control-label" for="totalproduto">Total (R$):</label>
+        <div class="controls">
+          <input type="text" class="form-control" value="{{card.produto.preco}}" rel="campovalor" name="totalproduto" id="totalproduto" ng-model="card.totalproduto" disabled>
+          <input type="hidden" value="{{produto.preco}}" name="precototal" id="precototal">
+        </div>        
+      </div>
+      <div class="">
+        <label class="control-label" for="observacao">Observação:</label>
+        <div class="controls">
+          <textarea rows="3" name="observacao" id="observacao" class="form-control"></textarea>
+        </div>
+      </div>
+      <div class="">
+        <div class="controls">    
+          <div ng-if="produto.disponivel && produto.negocio.lojaaberta">  
+            <input type="submit" value="Adicionar ao pedido" name="commit" id="button_gravarpedido" class="btn btn-primary">
+          </div>
+          <div ng-if="!produto.disponivel">  
+            <div class="alert alert-error">
+              Produto indisponível para pedidos
+            </div>
+            <script type="text/javascript">
+              $("#produtoparapedido *").prop('disabled',true);
+            </script>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>    
+</div>
+<div>
+  <hr/>
+  <strong>Anunciante</strong>
+  <h2>{{produto.negocio.name}}</h2>
+  <label>CNPJ</label>
+  <div>{{produto.negocio.cnpj}}</div>
+  <div ng-if="produto.negocio.endereco">
+    <label>Endereço</label>
+    <div>{{produto.negocio.endereco}}</div>
+  </div>
+  <div ng-if="produto.negocio.telefone">
+    <label>Telefone</label>
+    <div>{{produto.negocio.telefone}}</div>
+  </div>
+  <div ng-if="produto.negocio.horarioatendimento">
+    <label>Atendimento</label>
+    <div ng-bind-html="produto.negocio.horarioatendimento"></div>
+  </div>
+  <div ng-if="produto.negocio.tempoentrega">
+    <label>Tempo de entrega</label>
+    <div>{{produto.negocio.tempoentrega}}</div> 
+  </div>
+  <div ng-if="produto.negocio.valorminimoentrega">   
+    <label>Valor mínimo</label>
+    <div>{{produto.negocio.valorminimoentrega}}</div>    
+  </div>
+  <div ng-if="produto.negocio.taxaentrega">       
+    <label>Taxa de entrega</label>
+    <div>{{produto.negocio.taxaentrega}}</div>  
+  </div>
+  <div ng-if="produto.negocio.regiaoatendida">           
+    <label>Região atendida</label>
+    <div>{{produto.negocio.regiaoatendida}}</div>  
+  </div>
+  <div ng-if="produto.negocio.formasdepagamento">     
+    <label>Formas de pagamento</label>
+    <div>{{produto.negocio.formasdepagamento}}</div>  
+  </div>
+</div>
+<script type="text/javascript">
+  $("#totalproduto").val($("#preco").val());
+  $("#fracaoitem_id").change(function() {
+    if($('option:selected', this).val()=='0'){
+      $("#button_gravarpedido").val('Adicionar ao pedido');
+      $("#fracaoalerta").hide();
+    }
+    else{
+      $("#button_gravarpedido").val('Escolher segunda metade');
+      $("#fracaoalerta").show();
+    }
+  });
+</script>
+
+<script type="text/javascript">
+  fatualizasubtotal();
+  $("[rel='chkboxopcional']").click(function() {
+    fatualizasubtotal();
+  });
+  $("[rel='selectvariacao']").change(function() {
+    fatualizasubtotal();
+  });
+
+  $('#quantidade').keyup(function() {   
+    fatualizatotal();
+  });
+/*
+  $("#selectvariacao<%##=variacaoprincipal.id%>").change(function() {
+    var influencia =$('option:selected', this).attr('influencia');
+    var precoselecionado=$('option:selected', this).attr('preco');
+    if (influencia==0) {
+      $("#subtotal").val(
+        parseFloat('<%##=@produto.preco%>').toFixed(2)
+      );
+    }
+    else{
+      $("#subtotal").val(
+        parseFloat(precoselecionado).toFixed(2)
+      );
+    };
+
+  });
+*/
+
+  function fatualizasubtotal(){
+    var vprecobase=produto.preco;
+    var vsubtotal = vprecobase;
+
+    //$("input[id^=vendaprodutos_precototal_]").each(function() {
+    $("[rel='selectvariacao']").each(function() {
+      var vinfluencia =$('option:selected', this).attr('influencia');
+      var vprecoselecionado=$('option:selected', this).attr('preco');
+      console.log('vinfluencia');
+      console.log(vinfluencia);
+      console.log('CONFIG.Produtoinfluenciapreco_codigo_substituicao');
+      console.log(CONFIG.Produtoinfluenciapreco_codigo_substituicao);
+      if (vinfluencia==CONFIG.Produtoinfluenciapreco_codigo_substituicao) {
+        vprecobase = parseFloat(vprecoselecionado);
+        vsubtotal = vprecobase;
+      }
+      else if (vinfluencia==CONFIG.Produtoinfluenciapreco_codigo_adicao) {
+        vsubtotal += parseFloat(vprecoselecionado);
+      }
+      else if (vinfluencia==CONFIG.Produtoinfluenciapreco_codigo_subtracao) {
+        vsubtotal -= parseFloat(vprecoselecionado);
+      };      
+    });
+
+    $("[rel='chkboxopcional']").each(function() {
+      if($(this).is(':checked')){
+        var vinfluencia =$(this).attr('influencia');
+        var vprecoselecionado=$(this).attr('preco');
+        if (vinfluencia==CONFIG.Produtoinfluenciapreco_codigo_adicao) {
+          vsubtotal += parseFloat(vprecoselecionado);
+        }
+        else if (vinfluencia==CONFIG.Produtoinfluenciapreco_codigo_subtracao) {
+          vsubtotal -= parseFloat(vprecoselecionado);
+        };
+      };
+    });
+
+    // update the grandtotal cell to the new total
+    //$("#totalproduto").val(vprecobase.toFixed(2));
+
+    $("#precobase").val(vprecobase.toFixed(2));
+    $("#subtotal").val(vsubtotal.toFixed(2));
+    $("#precounitario").val($("#subtotal").val());
+    fatualizatotal();
+  };
+
+  function fatualizatotal(){
+    $("#totalproduto").val(
+      (parseFloat($('#quantidade').val())*
+      parseFloat($("#subtotal").val())).toFixed(2)
+    );
+    $("#precototal").val($("#totalproduto").val());
+  };
+</script>
+
+<script type="text/javascript">
+  <%##=render :partial=>'layouts/jqueryvalidatormessages' %>
+  <%##=render :partial=>'layouts/jqueryvalidatormetodosadicionais' %>
+
+  $('#line_itens_form').validate({
+    submitHandler: function(form) {
+      $('#button_gravarpedido').closest('div').append('<%##=render :partial=>"layouts/barraprogresso_partial"%>');
+      $('#button_gravarpedido').hide();
+      form.submit();
+    },    
+    rules:{
+      "quantidade":{
+        required: true,   
+        number: true,
+        min : 1
+      }
+    },
+    messages:{
+      
+    }
+  });
+</script>

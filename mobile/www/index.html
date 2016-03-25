@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>Jornadaib</title>
+
+    <!-- <link href="lib/ionic/css/ionic.css" rel="stylesheet"> -->
+    <!-- rick -->
+    <link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <!-- link href="rick/css/responsive.css" rel="stylesheet" -->
+    <link href="css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <!-- rick-fim -->
+
+    <!-- <link href="css/style.css" rel="stylesheet"> -->
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- rick -->
+    <script src="lib/angular-locale_pt-br.js"></script>
+
+
+    <script src="lib/angular-resource/angular-resource.min.js"></script>
+    <script src="lib/angular-devise/lib/devise-min.js"></script>
+    <script src="lib/angular-bootstrap/ui-bootstrap.min.js"></script>
+    <script src="lib/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
+<!-- shim is needed to support non-HTML5 FormData browsers (IE8-9)-->
+    <script src="lib/ng-file-upload/ng-file-upload-shim.min.js"></script>    
+    <script src="lib/ng-file-upload/ng-file-upload.min.js"></script>
+    <!-- script src="lib/angular-base64-upload.js"></script -->
+
+    
+    <script src="lib/angular-input-masks/angular-input-masks-dependencies.min.js"></script>
+    <script src="lib/angular-input-masks/angular-input-masks-standalone.min.js"></script>
+    <script src="lib/angular-input-masks/angular-input-masks.br.min.js"></script>
+
+    <script src="lib/wizValidation/wizValidation/wizValidation.min.js"></script>
+
+    <script src="lib/angular-messages/angular-messages.min.js"></script>
+
+    <script src="lib/angular-cookie/angular-cookie.min.js"></script>
+    <script src="lib/ng-token-auth/dist/ng-token-auth.min.js"></script>    
+
+
+    <script src="lib/angular-cached-resource/angular-cached-resource.min.js"></script>    
+
+    <!-- script src="lib/angular-devise/lib/devise.js"></script -->
+    <!-- script src="js/jquery.js"></script -->
+    <!-- script src="rick/js/customrick.js"></script -->
+
+    <!-- rick-fim -->
+
+    <!-- your app's js -->
+    <script src="appjs/app.js"></script>
+
+    <!-- rick -->
+    <!-- script src="js/configs/config.js"></script -->
+    <!-- script src="js/directives/directives.js"></script -->
+
+    
+    <script src="services/services.js"></script> 
+    <script src="factories/factories.js"></script> 
+    <!-- script src="js/settings.js"></script --> 
+
+    <script src="controllers/controllers.js"></script>
+    <script src="controllers/maincontroller.js"></script>
+    <script src="controllers/userscontroller.js"></script>
+    <!-- script src="js/controllers/produtoscontroller.js"></script -->
+    <script src="controllers/trabalhoscontroller.js"></script>
+
+
+    <script src="routes/routes.js"></script>
+    <!-- rick-fim -->
+
+  </head>
+  <!-- <body ng-app="jornadaib" ng-controller="MainCtrl"> -->
+  <body ng-app="jornadaib" >
+    <ion-header-bar id="header">
+      <div class="row">
+        <div class='col-sm-12'>
+          <a href="#/home" class="pull-left">
+            <img src="images/jornadaib.png" style="padding: 4px" alt="jornadaib">
+          </a>
+          <div class="pull-right" ng-include="'views/index/_nav.html'"></div>
+        </div>
+      </div>
+    </ion-header-bar>  
+    <ion-content>
+    <h3 style="padding-top: 6px;"><strong>INSTITUTO BRASIL: 65 ANOS DE HISTÓRIA, FORMANDO CIDADÃOS E CIDADÃS PARA UM MUNDO MAIS JUSTO E FRATERNO.</strong></h3>
+      <section id="container">
+        <div class='row'>
+          <div class="features_items col-sm-12" style="position: relative;"> 
+            <div ui-view></div>
+          </div>        
+        </div>        
+      </section>
+    </ion-content>
+  </body>
+</html>

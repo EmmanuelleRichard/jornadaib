@@ -1,0 +1,7 @@
+<div class="page-header">
+  <h1>Novo cadastro</h1>
+</div>
+
+<form ng-submit="submitRegistration(user)" role="form" ng-init="user = {}" name="userForm">
+  <div ng-include="'views/users/_form.html'"></div>
+</form>

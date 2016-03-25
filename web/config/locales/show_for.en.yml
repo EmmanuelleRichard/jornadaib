@@ -1,0 +1,5 @@
+en:
+  show_for:
+    blank: "Nao informado"
+    "yes": "Sim"
+    "no": "Nao"

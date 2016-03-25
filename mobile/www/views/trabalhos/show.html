@@ -1,0 +1,15 @@
+<h1>{{trabalho.name}}</h1>
+<div class="well well-sm" ng-show="user.signedIn">
+    <a ui-sref="editTrabalho({id:trabalho.id})">Alterar cadastro</a>|
+    <a class="btn btn-danger btn-xs"  ng-click="deleteTrabalho(trabalho)">Delete</a>
+</div>
+<div class="well well-sm" float="right">
+	<label>Turma</label><br/>
+	{{trabalho.turma}}<br/>
+	<label>Local: </label><br/>
+	{{trabalho.local}}<br/>
+	<label>Coordenadores: </label><br/>
+	<span ng-bind-html="trabalho.coordenadores | newlines "></span><br/>
+	<label>Componentes: </label><br/>
+	<span ng-bind-html="trabalho.componentes | newlines "></span>
+</div>

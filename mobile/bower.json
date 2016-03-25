@@ -1,0 +1,13 @@
+{
+  "name": "HelloIonic",
+  "private": "true",
+  "devDependencies": {
+    "ionic": "driftyco/ionic-bower#1.0.1"
+  },
+  "dependencies": {
+    "angular-devise": "~1.1.0",
+    "angular-input-masks": "~2.1.0",
+    "ng-file-upload": "~7.0.15",
+    "ng-token-auth": "~0.0.28"
+  }
+}

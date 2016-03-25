@@ -1,0 +1,12 @@
+<div ng-controller="UserCtrl">
+  	<span class="pull-right fontewhite" style="padding-top: 5px;">
+  		<!-- <a href="#/home">Home</a> -->
+  		<a href="#/creditos" style="padding-right: 10px;">Créditos</a>
+		<a href="#/mapa" style="padding-right: 10px;">Mapa</a>
+	    <span ng-show="!signedIn"><a href="#/login">Entrar</a></span>
+	    <!-- <span ng-show="!signedIn"><a href="#/newUser">Cadastre-se</a></span> -->
+	    <span ng-show="signedIn"><a href="#/editUser">Cadastro</a></span>
+	    <span ng-show="signedIn"><a href="#/trabalhos/new">Novo</a></span>
+	    <span ng-show="signedIn"><a href="#/logout">Sair</a></span>
+  	</span>
+</div>

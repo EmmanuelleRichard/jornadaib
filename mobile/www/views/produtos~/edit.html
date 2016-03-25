@@ -1,0 +1,12 @@
+<div ng-if="produto.name">
+	<a ui-sref="viewProduto({id:produto.codigo})"><h1>{{produto.name}}</h1></a>
+</div>
+<div ng-if="!produto.name">
+	<h1>Produto</h1>
+</div>
+<hr/>
+
+<!-- <form ng-submit="updateProduto()" enctype="multipart/form-data"> -->
+<form ng-submit="updateProduto()" >
+	<div ng-include="'views/produtos/_form.html'"></div>
+</form>

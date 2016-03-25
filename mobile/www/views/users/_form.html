@@ -1,0 +1,80 @@
+<span class="text-info">Os campos marcados com (<span class="fontred">*</span>) são obrigatórios.</span>
+<div class="form-group">
+  <label>Login (<span class="fontred">*</span>)</label>
+  <span class="text-info">Deve conter somente letras e/ou números, sem símbolos, espaços, sinais, caracteres especiais, pontos ou acentos.</span>
+  <br>
+  <input type="text" name="user_login" id="user_login" class="form-control" ng-model="user.login" ng-minlength="5" ng-pattern="/^[a-zA-Z0-9]*$/" required>
+  <div class="help-block" ng-messages="userForm.user_login.$error" ng-show="userForm.user_login.$touched">
+    <div ng-messages-include="views/index/_errormessages.html"></div>
+  </div>
+</div>
+<div class="form-group">
+  <label>E-mail (<span class="fontred">*</span>)</label>
+  <input type="email" name="user_email_cadastro" id="user_email_cadastro" class="form-control" ng-model="user.email" wiz-val-equal-to="email" required>
+  <div class="help-block" ng-messages="userForm.user_email_cadastro.$error" ng-show="userForm.user_email_cadastro.$touched">
+    <div ng-messages-include="views/index/_errormessages.html"></div>
+    <p class="alert-danger" ng-message="wizValEqualTo">E-mail e confirmação devem ser iguais</p>
+  </div>  
+</div>
+<div class="form-group" ng-hide="controller_name=='UserEditController'">
+  <label>Confirmar E-mail (<span class="fontred">*</span>)</label>
+  <input type="email" id="user_email_confirmation" name="user_email_confirmation" class="form-control" ng-model="user.emailconfirmation" wiz-val-equal-to="email" ng-required="controller_name!='UserEditController'">
+  <div class="help-block" ng-messages="userForm.user_email_confirmation.$error" ng-show="userForm.user_email_confirmation.$touched">
+    <div ng-messages-include="views/index/_errormessages.html"></div>
+    <p class="alert-danger" ng-message="wizValEqualTo">E-mail e confirmação devem ser iguais</p>
+  </div>    
+</div>
+<div class="form-group">
+  <label>Nome Completo (<span class="fontred">*</span>)</label>
+  <input type="text" class="form-control" ng-model="user.name" name="name" required>
+  <div class="help-block" ng-messages="userForm.name.$error" ng-show="userForm.name.$touched">
+    <div ng-messages-include="views/index/_errormessages.html"></div>
+  </div>    
+</div>
+<div class="form-group">
+  <label>Data de nascimento (<span class="fontred">*</span>)</label>
+  <input type="text" class="form-control" ng-model="user.datanascimento" wiz-val-date-of-birth="18" name="datanascimento" ui-date-mask required >
+  <div class="help-block" ng-messages="userForm.datanascimento.$error" ng-show="userForm.datanascimento.$touched">
+    <div ng-messages-include="views/index/_errormessages.html"></div>
+  </div>   
+</div>
+<div class="form-group">
+  <label>Gênero (<span class="fontred">*</span>) </label>
+  <select ng-model="user.sexo_id" class="form-control" name="sexo" required>
+    <option value="">selecione</option>
+    <option value="1">Masculino</option>
+    <option value="2">Feminino</option>
+  </select>
+  <div class="help-block" ng-messages="userForm.sexo.$error" ng-show="userForm.sexo.$touched">
+    <div ng-messages-include="views/index/_errormessages.html"></div>
+  </div>    
+</div>    
+
+<div class="form-group">
+  <label>Telefone (<span class="fontred">*</span>)</label>
+  <input type="text" class="form-control" ng-model="user.telefone" name="telefone" ui-br-phone-number required>
+  <div class="help-block" ng-messages="userForm.telefone.$error" ng-show="userForm.telefone.$touched">
+    <div ng-messages-include="views/index/_errormessages.html"></div>
+  </div>   
+</div>
+
+<div class="form-group" ng-hide="controller_name=='UserEditController'">
+  <label>Senha (<span class="fontred">*</span>)</label>
+  <input type="password" name="user_password_cadastro" id="user_password_cadastro" ng-class=" { 'form-control':true, 'has-error': userForm.user_password_cadastro.$touched && userForm.user_password_cadastro.$error }" ng-model="user.password" wiz-val-equal-to="password" ng-required="controller_name!='UserEditController'">
+  <div class="help-block" ng-messages="userForm.user_password_cadastro.$error" ng-show="userForm.user_password_cadastro.$touched">
+    <div ng-messages-include="views/index/_errormessages.html"></div>
+    <p class="alert-danger" ng-message="wizValEqualTo">Senha e confirmação devem ser iguais</p>
+  </div>   
+</div>
+<div class="form-group" ng-hide="controller_name=='UserEditController'">
+  <label>Confirmar senha (<span class="fontred">*</span>)</label>
+  <!-- <input type="password" name="user[password_confirmation]" id="user_password_confirmation" ng-model="user.passwordconfirmation" class="form-control" required> -->
+  <input type="password" name="user_password_confirmation" id="user_password_confirmation" ng-model="user.passwordconfirmation" class="form-control" wiz-val-equal-to="password" ng-required="controller_name!='UserEditController'">
+  <div class="help-block" ng-messages="userForm.user_password_confirmation.$error" ng-show="userForm.user_password_confirmation.$touched">
+    <div ng-messages-include="views/index/_errormessages.html"></div>
+    <p class="alert-danger" ng-message="wizValEqualTo">Senha e confirmação devem ser iguais</p>
+  </div>   
+</div>  
+<div class="actions">
+  <input type="submit" value="Gravar" name="commit" id="button_gravaruser" class="btn btn-primary btn-lg btn-block">
+</div>

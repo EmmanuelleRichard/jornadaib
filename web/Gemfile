@@ -1,0 +1,187 @@
+source 'http://rubygems.org'
+
+#gem 'rails' #, '3.0.0.rc'
+#gem 'rails', '4.0.0.rc1'
+#gem "rails", '~>4.0.0'
+gem "rails" #, '~>4.0.0'	#rails4
+
+gem 'rake'
+
+gem 'rb-readline'
+
+# Bundle edge Rails instead:
+# gem 'rails', :git => 'git://github.com/rails/rails.git'
+
+#gem 'sqlite3-ruby', :require => 'sqlite3'
+
+# Use unicorn as the web server
+# gem 'unicorn'
+
+# Deploy with Capistrano
+# gem 'capistrano'
+
+# To use debugger
+# gem 'ruby-debug'
+
+# Bundle the extra gems:
+# gem 'bj'
+# gem 'nokogiri', '1.4.1'
+# gem 'sqlite3-ruby', :require => 'sqlite3'
+# gem 'aws-s3', :require => 'aws/s3'
+
+# Bundle gems for the local environment. Make sure to
+# put test-only gems in this group so their generators
+# and rake tasks are available in development mode:
+# group :development, :test do
+#   gem 'webrat'
+# end
+
+
+###########################
+
+gem 'mongrel', '>= 1.2.0.pre2'
+
+
+gem "mysql2"
+#gem "mysql"
+gem "devise" #, "1.1.rc2" 
+gem "simple_form"
+gem "show_for"
+
+
+#gem 'devise',              :git => 'git://github.com/plataformatec/devise.git'
+gem 'inherited_resources', github: 'josevalim/inherited_resources'
+gem 'has_scope'  
+gem 'responders'			#,          :git => 'git://github.com/plataformatec/responders.git'
+#gem "paperclip"	#, "~> 3.4.0"	#, "~> 3.0"	#gem 'paperclip'				#,           :git => 'git://github.com/thoughtbot/paperclip.git'  #, :branch => 'rails3'
+#gem 'paperclip', '~> 3.1.4'
+#gem "paperclip", "~> 2.3"
+#rails4 gem "cocaine", "= 0.3.2"	#para o paperclip
+#gem "paperclip"	#rails4, "~> 3.0.4"
+gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
+
+# gem 'formtastic',          :git => 'git://github.com/justinfrench/formtastic.git', :branch => 'rails3'
+# Desativado por rick em 5/4/2013 gem 'will_paginate',       :git => 'git://github.com/mislav/will_paginate.git', :branch => 'rails3'
+
+gem 'rdiscount'
+
+# Bundle the extra gems:
+# gem 'nokogiri', '1.4.1'
+
+# Bundle gems for certain environments:
+group :test do
+  gem 'test-unit', '>= 2.0.7'
+#  gem "rspec-rails",      :git => 'git://github.com/rspec/rspec-rails.git'
+#  gem 'capybara',         :git => 'git://github.com/jnicklas/capybara.git'
+#  gem 'database_cleaner', :git => 'git://github.com/bmabey/database_cleaner.git'
+#  gem 'cucumber-rails',   :git => 'git://github.com/aslakhellesoy/cucumber-rails.git'
+#  gem 'factory_girl',     :git => 'git://github.com/danielb2/factory_girl.git', :branch => 'rails3'
+end
+
+# gem 'prawn'
+# gem 'prawn-format', :require => "prawn/format"
+gem 'RedCloth'
+
+gem 'brazilian-rails'
+
+
+# gem "rghost"				#Necessario para brcobranca
+gem "rghost"	#, :git => 'git://github.com/cncardoso/rghost.git'
+gem "rghost_barcode"		#Necessario para brcobranca
+gem "parseline"				#Necessario para brcobranca
+gem "brcobranca"	#rails4 , "~> 3.1.0"
+#gem "brcobranca", :git => 'git://github.com/kivanio/brcobranca.git'
+gem 'irwi'
+
+gem 'rubyzip'
+
+gem "exception_notification"	#rails4, :git => "git://github.com/rails/exception_notification", :require => 'exception_notifier'
+#https://github.com/smartinez87/exception_notification
+
+#gem "exception_notification", :require => 'exception_notifier'
+#gem "exception_notification", :git => "git://github.com/rails/exception_notification", :require => 'exception_notifier'
+
+
+#http://blog.concretesolutions.com.br/2012/06/resque/
+#http://www.perfectline.ee/blog/cron-tasks-for-your-rails-application-with-resque
+#gem 'resque'		#, :require => 'resque/server'
+#gem 'resque-scheduler'	, :require => 'resque_scheduler'
+#gem 'resque-status'
+
+gem "ckeditor"	#, "3.7.3"
+
+
+# sudo apt-get install memcached libmemcached-dev
+# gem install dalli
+gem 'dalli'
+
+#http://guides.rubyonrails.org/asset_pipeline.html
+#Upgrading from Old Versions of Rails
+=begin
+#rails4
+group :assets do
+  gem 'sass-rails'
+  gem 'compass-rails'
+
+  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
+  gem 'therubyracer', :platforms => :ruby
+
+  gem 'uglifier'
+end
+=end
+
+gem 'therubyracer'
+gem 'coffee-rails'
+gem 'sass-rails'
+gem 'uglifier'
+
+#rails4	gem "galetahub-simple_captcha"	#, :require => "simple_captcha"
+#gem 'simple_captcha', :git => 'git://github.com/galetahub/simple-captcha.git'
+gem 'simple_captcha', :git => 'git://github.com/Azdaroth/simple-captcha.git', :branch => 'rails-4'  
+
+
+#gem 'anjlab-bootstrap-rails', :require => 'bootstrap-rails',
+#                              :git => 'git://github.com/anjlab/bootstrap-rails.git'	#, :branch => '3.0.0'
+#Nao funciona gem 'galetahub-simple_captcha', :require => 'simple_captcha', :git => 'git://github.com/galetahub/simple-captcha.git'
+#gem "galetahub-simple_captcha", '0.1.3', :require => "simple_captcha"
+#https://github.com/galetahub/simple-captcha
+
+#https://github.com/ambethia/recaptcha
+#https://www.google.com/recaptcha
+#gem "recaptcha", :require => "recaptcha/rails"
+
+gem "pagseguro-oficial", :git=> "git://github.com/pagseguro/ruby.git"
+
+#https://github.com/elia/dimensions-rails
+#gem 'dimensions-rails'
+
+#gem "protected_attributes"	#rails4  #remover posteriormente
+
+gem 'turbolinks'	#rails4
+
+
+# gem 'fb_graph'
+gem "koala"
+
+#whenever para o cron
+gem 'whenever', :require => false
+
+gem 'sanitize'
+
+# login com facebook
+# https://github.com/plataformatec/devise/wiki/OmniAuth%3a-Overview
+gem 'omniauth-facebook'
+gem 'open_uri_redirections'  #necessario para pegar as imagens dos usuarios
+
+
+gem 'devise_token_auth'
+
+# gem 'iugu'
+
+# gem 'active_model_serializers'
+gem 'rack-cors', :require => 'rack/cors'
+
+
+######### Rick gemas para angular
+# gem 'bower-rails'
+# gem 'angular-rails-templates'

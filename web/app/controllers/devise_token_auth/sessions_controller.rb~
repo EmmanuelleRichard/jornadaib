@@ -1,0 +1,17 @@
+# see http://www.emilsoman.com/blog/2013/05/18/building-a-tested/
+module DeviseTokenAuth
+  class SessionsController < DeviseTokenAuth::ApplicationController
+
+    protected
+
+
+    def render_create_success
+      logger.debug 'render_create_success.entrou'
+      render json: {
+        data: @resource.token_validation_response
+      }
+    end
+
+
+  end
+end

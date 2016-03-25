@@ -1,0 +1,11 @@
+<div ng-if="trabalho.name">
+	<a ui-sref="showTrabalho({id:trabalho.id})"><h1>{{trabalho.name}}</h1></a>
+</div>
+<div ng-if="!trabalho.name">
+	<h1>Trabalhos</h1>
+</div>
+<hr/>
+
+<form ng-submit="updateTrabalho()" >
+	<div ng-include="'views/trabalhos/_form.html'"></div>
+</form>

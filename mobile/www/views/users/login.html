@@ -1,0 +1,47 @@
+<div class="page-header">
+  <h1>Entrar</h1>
+</div>
+
+<!-- <form ng-submit="login()">
+  <div class="input-group">
+    <input type="email" class="form-control" placeholder="Email" ng-model="user.email">
+  </div>
+  <div class="input-group">
+    <input type="password" class="form-control" placeholder="Password" ng-model="user.password" name="user[password]">
+  </div>
+  <input type="submit" class="btn btn-default" value="Log In">
+</form> -->
+
+<!-- 
+<ion-view name="login-view">
+  <ion-content>
+    <div class="list">
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Email</span>
+        <input type="email" placeholder="Email" ng-model="data.email">
+      </label>
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Password</span>
+        <input type="password" placeholder="Password" ng-model="data.password">
+      </label>
+    </div>
+
+    <div class="padding">
+      <button class="button button-block button-calm" ng-click="login()">Login</button>
+    </div>
+  </ion-content>
+</ion-view> -->
+
+<form ng-submit="submitLogin(loginForm)" role="form" ng-init="loginForm = {}">
+  <div class="form-group">
+    <label>email</label>
+    <input type="email" name="email" ng-model="loginForm.email" required="required" class="form-control"/>
+  </div>
+
+  <div class="form-group">
+    <label>password</label>
+    <input type="password" name="password" ng-model="loginForm.password" required="required" class="form-control"/>
+  </div>
+
+  <button type="submit" class="btn btn-primary btn-lg btn-block">Entrar</button>
+</form>

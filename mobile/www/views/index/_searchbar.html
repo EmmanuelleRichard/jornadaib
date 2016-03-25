@@ -1,0 +1,21 @@
+<div class="searchBar">
+  <div class="row">
+    <div class="col-sm-12 ">
+      <div style="margin-right: auto; display: table; margin-left: auto;">
+      <form name="helpForm" >
+<!--         <div class="form-group">
+          <input ng-model="helpForm.pesquisa" class="" type="text" placeholder="Pesquisar">
+        </div> -->
+          <!-- <input type="submit" value="Gravar" class="btn btn-primary btn-lg btn-block" data-ng-click="pesquisaTrabalho(helpForm)"> -->
+        <div class="input-group">
+          <input type="text" placeholder="Pesquisar..." class="form-control ng-pristine ng-valid ng-touched" ng-model="helpForm.pesquisa">
+          <span class="input-group-btn">
+            <!-- <button class="btn btn-default" type="button">Go!</button> -->
+            <button data-ng-click="pesquisaTrabalho(helpForm)" class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+          </span>
+        </div>    
+      </form>
+      </div>
+    </div>
+  </div>
+</div>

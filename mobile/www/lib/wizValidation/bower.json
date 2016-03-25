@@ -1,0 +1,37 @@
+{
+  "name": "wizValidation",
+  "version": "1.2.0",
+  "homepage": "https://github.com/GrumpyWizards/wizValidation",
+  "authors": [
+    "Gregory Pratt <gregory.pratt@me.com>"
+  ],
+  "description": "An AngularJS library for easier form validation",
+  "main": [
+    "wizValidation/wizValidation.js",
+    "wizValidation/wizValidation.min.js"
+  ],
+  "keywords": [
+    "angularjs",
+    "angular",
+    "validation",
+    "forms",
+    "utility"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    ".bowerrc",
+    ".gitignore",
+    "bower.json",
+    "gulpfile.js",
+    "Gruntfile.js",
+    "package.json",
+    "demo",
+    "wizValidation/src",
+    "protractor.spec.conf.js",
+    "README.md",
+    "LICENSE"
+  ]
+}

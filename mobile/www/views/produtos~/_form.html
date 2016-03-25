@@ -1,0 +1,168 @@
+<p>
+	<input type="checkbox" ng-model="produto.disponivel">Produto disponível para pedido
+</p>				
+<p>
+	<label>Nome{{produto.id}}</label>
+	<input type="text" name="input" ng-model="produto.name" required ng-trim="false" class='form-control '>
+</p>
+<p>
+	<label>Referência/Código/EAN13</label>
+	<input type="text" name="input" ng-model="produto.referencia" ng-trim="false" class='form-control widthauto'>
+</p>
+<p>
+	<label>Foto</label>
+	<img ng-src="{{produto.picture || 'img/ionic.png'}}" id="photo-id" class="img-responsive thumbnail"/>
+	<input type='file' name='file' ng-model='produto.picture' id="photo-upload" directiveuploadfile/>
+</p>  
+
+<p>
+	<input type="checkbox" ng-model="produto.exibirmensagemimgilust"><strong>Exibir mensagem</strong> "Imagem meramente ilustrativa"
+</p>	
+<p>
+	<label>Categoria</label>
+	<select name="categorias" ng-model="produto.categoria_id" class="form-control widthauto">
+	  <option ng-repeat="categoria in produto.negocio.categorias" value="{{categoria.id}}">{{categoria.name}}</option>
+	  <!-- <option ng-repeat="categoria in negocio.categorias" value="{{categoria.id}}">{{categoria.name}}</option> -->
+	</select>
+</p>
+<p>
+	<label>Tipo de medida</label>
+	<select name="tipomedidas" ng-model="produto.tipomedida_id" class="form-control widthauto">
+	  <option ng-repeat="tipomedida in produto.negocio.tipomedidas" value="{{tipomedida.id}}">{{tipomedida.name}}</option>
+	  <!-- <option ng-repeat="tipomedida in negocio.tipomedidas" value="{{tipomedida.id}}">{{tipomedida.name}}</option> -->
+	</select>			
+</p>	 
+<p>
+	<label>Preço</label>
+	<input type="text" name="preco" ng-model="produto.preco" ui-number-mask class="form-control widthauto">
+</p>	   
+<p>
+	<label>Preço promocional</label>
+	<input type="text" name="precopromocional" ng-model="produto.precopromocional" ui-number-mask class="form-control widthauto">
+</p>	 
+<p>
+	<input type="checkbox" ng-model="produto.fracaomeia">Permitir venda de 1/2 (metade)
+</p>			    
+<p>
+<label>Especificações</label>
+	<textarea name="especificacoes" ng-model="produto.especificacoes" class="form-control"></textarea>
+</p>	  	  
+<div>
+	<h3>Variações</h3>
+	<div ng-if="!produto.negocio.negociovariacoesprincipais">
+		Cadastre as variações<br/>
+		<%= link_to 'Nova variação', new_negocio_variacao_path(@negocio.codigo) %>
+	</div>
+	<!-- <div ng-if="produto.negocio.negociovariacoesprincipais"> -->
+	<div ng-repeat='variacaoprincipal in produto.negocio.negociovariacoesprincipais' class="table-responsive">
+	<!-- <div ng-repeat='variacaoprincipal in negocio.negociovariacoesprincipais' class="table-responsive"> -->
+        <table class="table table-striped table-bordered" >
+        	<thead>
+        		<tr>
+        			<th><strong>{{variacaoprincipal.name}}</strong></th>
+        			<th class='text-right'>Influência no preço</th>
+        			<th class="text-right">Preço</th>
+					<th class="text-right" ng-if="produto.empromocao">Preço promocional</th>
+        			<th></th>
+        		</tr>
+        	</thead>
+        	<tbody>      		
+				<tr ng-repeat="variacaosecundaria in variacaoprincipal.variacoessecundarias">
+					<td>
+						<input type="checkbox" ng-model="variacaosecundaria.selecionado" > 
+						{{variacaosecundaria.name}}
+						{{variacaosecundaria.selecionado}}
+					</td>
+					<td>
+						<span ng-show="variacaosecundaria.selecionado" class="pull-right">
+							<select id="influencianoprecovariacao{{variacaosecundaria.id}}" name="influencianoprecovariacao{{variacaosecundaria.id}}" ng-model="variacaosecundaria.influenciapreco_id">
+								<option value="0" ng-selected="variacaosecundaria.influenciapreco_id==0 || !variacaosecundaria.influenciapreco_id">Nenhuma</option>
+								<option value="1" >Substituição</option>
+								<option value="2" >Adição</option>
+								<option value="3" >Subtração</option>												
+							</select>												
+						</span>
+						<!-- {{variacaosecundaria.influenciapreco_id}} -->
+					</td>
+					<td>
+						<span ng-show="variacaosecundaria.selecionado && variacaosecundaria.influenciapreco_id && variacaosecundaria.influenciapreco_id!=0" class="pull-right">
+							<input type="text" value="{{variacaosecundaria.preco}}" ui-number-mask class="text-right" ng-model="variacaosecundaria.preco" >
+						</span>
+					</td>
+					<td ng-if="produto.empromocao">
+						<span rel='caracteristicavariacao{{variacao.id}}' ng-show="variacaosecundaria.selecionado && variacaosecundaria.influenciapreco_id && variacaosecundaria.influenciapreco_id!=0" class="pull-right">
+							<input type="text" value="{{variacaosecundaria.precopromocional}}" ui-number-mask class="text-right" ng-model="variacaosecundaria.precopromocional" >
+						</span>
+					</td>
+					<td>
+						<span rel='caracteristicavariacao{{variacao.id}}' ng-show="variacaosecundaria.selecionado">
+							<div directivemoveuprow></div>
+							<div directivemovedownrow></div>
+						</span>
+					</td>
+				</tr>
+  			</tbody>
+  		</table>
+  	</div>
+</div>
+<h3>Opcionais</h3>
+<div ng-if="!produto.negocio.negocioopcionaisprincipais">
+	Cadastre os opcionais<br/>
+	<%= link_to 'Novo opcional', new_negocio_opcional_path(@negocio.codigo) %>
+</div>
+<!-- <div ng-if="produto.negocio.negocioopcionaisprincipais"> -->
+<div ng-repeat='opcionalprincipal in produto.negocio.negocioopcionaisprincipais' class="table-responsive">
+<!-- <div ng-repeat='opcionalprincipal in negocio.negocioopcionaisprincipais' class="table-responsive"> -->
+    <table class="table table-striped table-bordered">
+    	<thead>
+    		<tr>
+    			<th><strong>{{opcionalprincipal.name}}</strong></th>
+    			<th class='text-right'>Influência no preço</th>
+    			<th class="text-right">Preço</th>
+				<th class="text-right" ng-if="produto.empromocao">Preço promocional</th>
+    			<th></th>
+    		</tr>
+    	</thead>
+    	<tbody>      		
+			<tr ng-repeat="opcionalsecundario in opcionalprincipal.opcionaissecundarios" data-index="{{$index}}">
+				<td>
+					<input type="checkbox" ng-model="opcionalsecundario.selecionado" > 
+					{{opcionalsecundario.name}}
+					{{opcionalsecundario.selecionado}}
+				</td>							
+				<td>
+					<span ng-show="opcionalsecundario.selecionado" class="pull-right">
+						<select id="influencianoprecovariacao{{opcionalsecundario.id}}" name="influencianoprecovariacao{{opcionalsecundario.id}}" ng-model="opcionalsecundario.influenciapreco_id">
+							<option value="0" ng-selected="opcionalsecundario.influenciapreco_id==0 || !opcionalsecundario.influenciapreco_id">Nenhuma</option>
+							<option value="1" >Substituição</option>
+							<option value="2" >Adição</option>
+							<option value="3" >Subtração</option>												
+						</select>												
+					</span>
+					<!-- {{opcionalsecundario.influenciapreco_id}} -->
+				</td>
+				<td>
+					<span ng-show="opcionalsecundario.selecionado && opcionalsecundario.influenciapreco_id && opcionalsecundario.influenciapreco_id!=0" class="pull-right">
+						<input type="text" value="{{opcionalsecundario.preco}}" ui-number-mask class="text-right" ng-model="opcionalsecundario.preco" >
+					</span>
+				</td>
+				<td ng-if="produto.empromocao">
+					<span rel='caracteristicavariacao{{variacao.id}}' ng-show="opcionalsecundario.selecionado && opcionalsecundario.influenciapreco_id && opcionalsecundario.influenciapreco_id!=0" class="pull-right">
+						<input type="text" value="{{opcionalsecundario.precopromocional}}" ui-number-mask class="text-right" ng-model="opcionalsecundario.precopromocional" >
+					</span>
+				</td>
+				<td>
+					<span rel='caracteristicavariacao{{variacao.id}}' ng-show="opcionalsecundario.selecionado">
+						<input type="text" name="opcionalsecundarioordem" ng-model="opcionalsecundario.ordem" >								
+						<div directivemoveuprow></div>
+						<div directivemovedownrow></div>
+					</span>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<!-- </div>	 -->
+<p>
+	<input type="submit" class="btn btn-primary" value="Gravar" class="btn btn-primary">
+</p>

@@ -1,0 +1,21 @@
+<div  ng-include="'views/index/_searchbar.html'"></div>
+<div class='clearfix'></div>
+<div ng-repeat='trabalho in trabalhos' class="col-md-4 col-sm-6 seletorcol">
+  <div class="product-image-wrapper">
+    <div class="single-products">
+      <div class="choose">
+        <ul class="nav nav-pills nav-justified">
+          <li>
+            <a ui-sref="showTrabalho({id:trabalho.id})">
+              <div class="productinfo text-left">
+                <h3>{{trabalho.name}}</h3>
+                Turma: {{trabalho.turma}}<br/>
+                Local: {{trabalho.local}}<br/>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

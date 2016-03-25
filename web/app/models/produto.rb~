@@ -1,0 +1,115 @@
+# encoding: utf-8
+
+class Produto < ActiveRecord::Base
+	require 'normalizepicturefilename'
+	include Normalizepicturefilename	
+	belongs_to :negocio
+	belongs_to :categoria
+
+	has_many :line_items
+
+	#has_attached_file :picture, :styles => {:small => "200x200>", :normal => "400x400"}, :default_url => "/assets/no_pictures/:style/missing.jpg"
+
+  	has_attached_file :picture, 
+	    :styles => {:thumb => "100x100>", :small => "200x200>", :large => "600x600>", :original => "1000x1000>"}, 
+	    :convert_options => {
+	      :icon =>  "  -gravity Center -thumbnail 50x50   -extent 50x50   -quality 40", 
+	      :thumb => "  -gravity Center -thumbnail 100x100 -extent 100x100 -quality 40",  
+	      :small => "  -gravity Center -thumbnail 200x200 -extent 200x200 -quality 40",  
+	      :large => "  -gravity Center -thumbnail 600x600 -extent 600x600 -quality 40"},  
+	    :default_url => "/assets/no_pictures/:style/missing.jpg"    
+	validates_attachment_content_type :picture, :content_type => ["image/jpg", "image/jpeg", "image/png"]
+
+	#has_many :produtosvariacoes, :through=> :produtos_variacoes
+	has_many :produtos_variacoes, :class_name => "ProdutosVariacoes"	#, :foreign_key => "patrocinador_id"
+	has_and_belongs_to_many :variacoes
+
+	has_many :opcionais_produtos, :class_name => "OpcionaisProdutos"	#, :foreign_key => "patrocinador_id"
+	has_and_belongs_to_many :opcionais
+
+	before_destroy :ensure_not_referenced_by_any_line_item
+
+  	after_save do |produto|
+    	produto.update_columns :codigo => (produto.id.to_s+("%04d" % SecureRandom.random_number(9999))).to_i if produto.codigo.blank?
+  	end
+
+	def picturesmall
+		'http://192.168.57.101:3000'+self.picture.url(:small)
+	end  
+
+	def picturelarge
+		'http://192.168.57.101:3000'+self.picture.url(:large)
+	end  
+
+	def picturethumb
+		'http://192.168.57.101:3000'+self.picture.url(:thumb)
+	end  	
+
+	def ofertapreco
+		'R$ '+self.preco.real.to_s
+	end
+
+	def ofertapor
+		'R$ '+self.precopromocional.real.to_s
+	end
+
+  	def empromocao
+		self.disponivel and self.precopromocional and self.precopromocional.to_f>0 and self.preco.to_f>self.precopromocional.to_f
+  	end
+  	
+  	def precoatual
+  		self.empromocao ? self.precopromocional : self.preco
+  	end
+
+	def to_param
+		"#{self.name}-#{self.codigo}".parameterize
+	end
+
+  	def self.influenciapreco_variacoes_id_coleccion
+	  	varray=[]
+	  	varray<<["Nenhuma", "0"]
+	  	varray<<["Substituição", "1"]
+	  	varray<<["Adição", "2"]
+	  	varray<<["Subtração", "3"]	  	
+	  	return varray
+  	end   
+  	def self.influenciapreco_opcionais_id_coleccion
+	  	varray=[]
+	  	varray<<["Nenhuma", "0"]
+	  	varray<<["Adição", "2"]
+	  	varray<<["Subtração", "3"]
+	  	return varray
+  	end   
+  	def self.influenciapreco_codigo(params = nil)
+		result = case params
+		   when :nenhuma then 0
+		   when :substituicao then 1
+		   when :adicao then 2
+		   when :subtracao then 3
+		   else nil
+		end  		
+  	end
+
+  	def self.influenciapreco_codigo_literal(params=nil)
+		result = case params
+		   when 0 then :nenhuma
+		   when 1 then :substituicao
+		   when 2 then :adicao
+		   when 3 then :subtracao
+		   else :nil
+		end
+  	end
+
+
+	private 
+	# ensure that there are no line items referencing this product
+	def ensure_not_referenced_by_any_line_item
+		if line_items.empty? 
+			return true 
+		else 
+			errors.add(:base, 'Line Items present') 
+			return false 
+		end 
+	end
+
+end

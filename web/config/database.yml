@@ -1,0 +1,18 @@
+login: &login
+  adapter: mysql2
+  username: XXXXXX
+  password: XXXXX
+  host: localhost
+  encoding: utf8
+
+development:
+  <<: *login
+  database: jornadaib_db
+
+test:
+  <<: *login
+  database: jornadaib_db
+
+production:
+  <<: *login
+  database: jornadaib_db 
