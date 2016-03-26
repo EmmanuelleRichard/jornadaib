@@ -42,7 +42,7 @@ echo "************** Gerar a chave privada com o comando abaixo.  Gere uma únic
 
 echo "************** Aplicar a chave no APK"
 
-jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore /home/rick/trabalho/1sistemas/jornadaib/mobile/platforms/android/build/outputs/apk/android-release-unsigned.apk alias_name
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore /home/XXX/1sistemas/jornadaib/mobile/platforms/android/build/outputs/apk/android-release-unsigned.apk alias_name
 
 echo "************** remove o apk antigo"
 
@@ -51,6 +51,6 @@ rm jornadaib.apk
 echo "************** zip align tool para otimizar APK"
 
 > Dependendo de onde esteja o zipaligin:
-> ~/./Development/android-sdk-linux/build-tools/22.0.1/zipalign -v 4 /home/rick/trabalho/1sistemas/jornadaib/mobile/platforms/android/build/outputs/apk/android-release-unsigned.apk jornadaib.apk
+> ~/./Development/android-sdk-linux/build-tools/22.0.1/zipalign -v 4 /home/XXX/1sistemas/jornadaib/mobile/platforms/android/build/outputs/apk/android-release-unsigned.apk jornadaib.apk
 
 /home/XXX/Android/Sdk/build-tools/23.0.2/zipalign -v 4 /home/XXX/trabalho/1sistemas/jornadaib/mobile/platforms/android/build/outputs/apk/android-release-unsigned.apk jornadaib.apk
