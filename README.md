@@ -1,5 +1,5 @@
 # jornadaib
-Aplicativo desenvolvido para a feira de ciências, chamada "Jornada", do Instituto Brasil, instituição de ensino de Natal/RN
+Aplicativo desenvolvido por Emmanuelle Richard, com colaboração de Rick Richard, para a feira de ciências, chamada "Jornada", do Instituto Brasil, instituição de ensino de Natal/RN
 
 A parte mobile/web foi desenvolvida com IonicFramework, enquanto que a server foi desenvolvida em Ruby on Rails.
 
