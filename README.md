@@ -40,7 +40,7 @@ echo "************** Gerar a chave privada com o comando abaixo.  Gere uma únic
 > usar este comando para gerar a chave: 
 > keytool -genkey -v -keystore my-release-key.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 10000
 
-echo "************** To sign the unsigned APK"
+echo "************** Aplicar a chave no APK"
 
 jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore /home/rick/trabalho/1sistemas/jornadaib/mobile/platforms/android/build/outputs/apk/android-release-unsigned.apk alias_name
 
