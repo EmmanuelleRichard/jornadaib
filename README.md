@@ -16,6 +16,7 @@ server {
 } 
  
 server{ 
+
         listen 80; 
         server_name web.jornadaib.com.br; 
         passenger_enabled on; 
