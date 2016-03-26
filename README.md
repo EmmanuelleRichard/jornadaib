@@ -26,23 +26,31 @@ server{
 
 ## Geração do APK
 
-echo "************** remove debug console plugin"
+echo "************** remover debug console plugin"
+
 cordova plugin rm cordova-plugin-console
 
-echo "************** generate a release build for Android"
+echo "************** gerar o build para Android"
+
 cordova build --release android
 
 
-echo "************** generate our private key- nao precisa porque ja esta gerado e se gerar outra impede a atualizacao do apk"
-#keytool -genkey -v -keystore my-release-key.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 10000
+echo "************** Gerar a chave privada com o comando abaixo.  Gere uma única vez porque se gerar outra impede a atualizacao do apk na Play Store"
+
+> usar este comando para gerar a chave: 
+> keytool -genkey -v -keystore my-release-key.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 10000
 
 echo "************** To sign the unsigned APK"
+
 jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore /home/rick/trabalho/1sistemas/jornadaib/mobile/platforms/android/build/outputs/apk/android-release-unsigned.apk alias_name
 
 echo "************** remove o apk antigo"
+
 rm jornadaib.apk
 
-echo "************** zip align tool to optimize the APK"
-#~/./Development/android-sdk-linux/build-tools/22.0.1/zipalign -v 4 /home/rick/trabalho/1sistemas/jornadaib/mobile/platforms/android/build/outputs/apk/android-release-unsigned.apk jornadaib.apk
+echo "************** zip align tool para otimizar APK"
 
-/home/rick/Android/Sdk/build-tools/23.0.2/zipalign -v 4 /home/rick/trabalho/1sistemas/jornadaib/mobile/platforms/android/build/outputs/apk/android-release-unsigned.apk jornadaib.apk
+> Dependendo de onde esteja o zipaligin:
+> ~/./Development/android-sdk-linux/build-tools/22.0.1/zipalign -v 4 /home/rick/trabalho/1sistemas/jornadaib/mobile/platforms/android/build/outputs/apk/android-release-unsigned.apk jornadaib.apk
+
+/home/XXX/Android/Sdk/build-tools/23.0.2/zipalign -v 4 /home/XXX/trabalho/1sistemas/jornadaib/mobile/platforms/android/build/outputs/apk/android-release-unsigned.apk jornadaib.apk
