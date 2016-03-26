@@ -24,7 +24,7 @@ server{
         root /home/xxxx/1sistemas/jornadaib/web/public; 
 } 
 
-## Geração do APK
+## Geração do APK (Mobile Android)
 
 echo "************** remover debug console plugin"
 
