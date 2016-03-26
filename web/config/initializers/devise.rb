@@ -229,9 +229,7 @@ Devise.setup do |config|
   # end
 
   
-  config.omniauth :facebook, "709384295818117", "f8034948b79ceda391bc28df8620e9d6" 
   
   #Rails4
   config.secret_key = '-- secret key --'
-  #config.secret_key = 'a6e1370987f976f40546b09350e057a14a1da1db429d7dc338615f864bf2208f270a179b9284a883f58dc52c9ad309018a0676d76180b79bf199e288d55121d6'    
 end
