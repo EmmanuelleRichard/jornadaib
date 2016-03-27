@@ -5,6 +5,10 @@ A parte mobile/web foi desenvolvida com IonicFramework, enquanto que a server fo
 
 Utilizamos um único código tanto para a versão web quanto para a mobile.
 
+A versão web pode ser acessada através do link http://www.jornadaib.com.br
+
+A versão mobile pode ser instalada através do link https://play.google.com/store/apps/details?id=com.ionicframework.jornadaib471737
+
 ## Configuração do NGINX
 ### web
 server { 
